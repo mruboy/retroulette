@@ -1447,8 +1447,19 @@
 	
 	
 		<script>
+		
 			$(document).ready(function(){
-				//var total_games = $("#textMachine div").length;	
+				var snes_emulator =  "\"F:\\Emulators\\snes9x\\snes9x-x64.exe\"";
+				var snes_rom_path = "\"F:\\Emulators\\Super\ Nintendo\\";
+				var nes_emulator =  "\"F:\\Emulators\\NES ALL ROMS\\Emulators\\Nestopia\\nestopia.exe\"";
+				var nes_rom_path =  "\"F:\\Emulators\\NES ALL ROMS\\Games Released in the US\\";
+				function runProgram(program, rom)
+				{
+					var shell = new ActiveXObject("WScript.Shell");             
+					var emulator =  program + " " + rom;
+					shell.Run(emulator);
+				}
+				
 				var snes_total_games = $(".snes.gameslist").length;	
 				var nes_total_games = $(".nes.gameslist").length;	
 				
@@ -1459,37 +1470,28 @@
 				}
 				
 				function postShuffle($el, active){
-				/*	switch($el[0].id){
-						case 'textMachine':
-							$( ".slotMachineContainer" ).effect( "bounce",  {times:3}, 100);
-							break;
+					var emulator_command = false;
+					if($(this.element[0]).hasClass("snes")){
+						emulator_path = snes_emulator;
+						rom_path = snes_rom_path;
+						rom_file = $(".snes.gameslist div:eq(" + ($el + 3) + ")").text();
+						emulator_command = emulator_path + " -fullscreen " + rom_path + rom_file + ".zip\"";
 					}
-				*/
-				}
-				
-				function systempostShuffle($el, active){
-				/*	switch($el[0].id){
-						case 'textMachine':
-							$( ".slotMachineContainer" ).effect( "bounce",  {times:3}, 100);
-							break;
-					}
-				*/
-					//nes is selected
-					if(active.index == "0"){
-							$(".snes.roulette").hide();
-							$('html, body').animate({
-								scrollTop: $(".nes.roulette").offset().top
-							}, 1000);
+					else if($(this.element[0]).hasClass("nes")){
+						emulator_path = nes_emulator;
+						rom_path = nes_rom_path;
+						rom_file = $(".nes.gameslist div:eq(" + ($el + 3) + ")").text();					
+						emulator_command = emulator_path + " " + rom_path + rom_file + ".nes\" -video fullscreen bpp : 16 -video fullscreen width : 1024 -video fullscreen height : 768 ";
 					}
 					
-					//snes is selected
-					if(active.index == "1"){
-							$(".nes.roulette").hide();
-							$('html, body').animate({
-								scrollTop: $(".snes.roulette").offset().top
-							}, 1000);
-					}
-				}	
+					setTimeout(function(){
+						if(emulator_command){					
+							var shell = new ActiveXObject("WScript.Shell");           
+							shell.Run(emulator_command);
+						}
+					}, 2000);				
+				}
+			
 					
 				//var gameMachine = $("#textMachine").slotMachine({
 				var nesgameMachine = $(".nes.gameslist").slotMachine({				
@@ -1508,11 +1510,37 @@
 					active	: 0,
 					delay	: 500
 				});
+				function systempostShuffle($el, active){
 						
+							
+					var active = system_machine.active;
+					
+				/*	switch($el[0].id){
+						case 'textMachine':
+							$( ".slotMachineContainer" ).effect( "bounce",  {times:3}, 100);
+							break;
+					}
+				*/
+					//nes is selected
+					if(active == "0"){
+							$(".snes.roulette").hide();
+							$('html, body').animate({
+								scrollTop: $(".nes.roulette").offset().top
+							}, 1000);
+					}
+					
+					//snes is selected
+					if(active == "1"){
+							$(".nes.roulette").hide();
+							$('html, body').animate({
+								scrollTop: $(".snes.roulette").offset().top
+							}, 1000);
+					}
+				}	
 				//$("#textMachineButtonShuffle").click(function(){										
 				$(".nes.slotMachineButton").click(function(){										
 					$("#nes-textmachine-placeholder").hide();
-					if( nesgameMachine.isRunning() ){											
+					if( nesgameMachine.isRunning ){											
 						nesgameMachine.stop(true);											
 					}else{						
 						nesgameMachine.shuffle(3, postShuffle);
@@ -1523,16 +1551,21 @@
 				$(".snes.slotMachineButton").click(function(){		
 													
 					$("#snes-textmachine-placeholder").hide();
-					if( snesgameMachine.isRunning() ){											
+					if( snesgameMachine.isRunning ){											
 						snesgameMachine.stop(true);											
 					}else{						
 						snesgameMachine.shuffle(3, postShuffle);
 					}
+					
+					
+		            //shell.Run(emulator);
+					//snes_emulator + snes_rom_path + 
+
 				});
 				
 						
 						
-				$(".system.slotMachineButton").click(function(){											
+				$(".system.slotMachineButton").click(function(){
 					system_machine.shuffle(3, systempostShuffle);
 				})
 				

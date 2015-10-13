@@ -6,16 +6,10 @@ A simple, lightweight jQuery plugin to make slot machine animation effect.
 
 ## Installation
 
-Install the component using [Bower](http://bower.io/):
-
-```sh
-$ bower install jquery-slotmachine --save
-```
-
-Include the script located in *dist* folder *after* the jQuery library:
+Include the script *after* the jQuery library:
 
 ```html
-<script src="/path/to/jquery.slotmachine.min.js"></script>
+<script src="/path/to/jquery.slotmachine.js"></script>
 ```
 
 ## Usage
@@ -24,12 +18,6 @@ Creating the machine:
 
 ```javascript
 var machine = $(foo).slotMachine( params );
-```
-
-Get machine instance:
-
-```javascript
-var machine = $(foo).slotMachine();
 ```
 
 Shuffle:
@@ -49,25 +37,13 @@ machine.next(); //Next element
 Get selected element:
 
 ```javascript
-machine.active; //Current element index
-```
-
-Get the next selected element:
-
-```javascript
-machine.futureActive; //Future active element index
+machine.active(); //Returns element index inside an object
 ```
 
 Check if the machine is running:
 
 ```javascript
-machine.isRunning; //Returns boolean
-```
-
-Check if the machine is stopping:
-
-```javascript
-machine.isStopping; //Returns boolean
+machine.isRunning(); //Returns boolean
 ```
 
 Change spin result, if the returned value is out of bounds, the element will be randomly choosen:
@@ -76,52 +52,40 @@ Change spin result, if the returned value is out of bounds, the element will be 
 machine.setRandomize(foo); //foo must be a function (should return int) or an int
 ```
 
-Change spin direction, machine must not be running:
-
-```javascript
-machine.setDirection(direction); //direction must be a String ('up' || 'down')
-```
-
 ## Params
 
 Params must be an object, optionally containing the next parammeters:
 
-#### active
+### active
 
 Set the first element
 
     active: 0
-
-#### delay
+    
+### delay
 
 Set spin animation time
 
     delay: 200
-
-#### auto
+    
+### auto
 
 Pass an int as miliseconds to make the machine auto rotate
 
-    auto: false
+    repeat: false
 
-#### spins
-
-The number of spins when auto is enabled
-
-    spins: false
-
-#### stopHidden
+### stopHidden
 
 Stop animation if the element is above or below the screen
 
     stopHidden: true
 
-#### randomize
+### randomize
 
 Pass a function to select your own random element. This function must return an integer between 0 (first element) and max number of elements.
 
     randomize: function(activeElementIndex){} //activeElementIndex = current selected index
-
+    
 Example (this machine always shows first element):
 
 ```javascript
@@ -131,12 +95,7 @@ $('#foo').slotMachine({
 	}
 });
 ```
-#### direction
-
-Animation direction ('up' || 'down')
-
-    direction: 'up'
-
+    
 ## Authors
 
 [Jose Luis Represa](https://github.com/josex2r)
