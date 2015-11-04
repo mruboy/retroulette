@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+		<title>Kusoge Fighting Game Gauntlet</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+
+		<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="css/fightinggame.css" type="text/css" media="screen" />
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="mountain">
+			
+			<div id="textMachine" class="fighting gameslist">				
+				<div system="nes" class="game">Blades of Steel</div>	
+				<div system="snes" class="game">Mortal Kombat Mythologies</div>
+				<div system="snes" class="game">TMNT Tournament Fighters</div>
+				<div system="nes" class="game">TMNT Tournament Fighters</div>
+				<div system="gen" class="game">TMNT Tournament Fighters</div>
+				<div system="arc" class="game">Street Fighter the Movie the Game</div>
+				<div system="arc" class="game">Wrestlemania</div>
+				<div system="arc" class="game">Survival Arts</div>
+				<div system="arc" class="game">Time Killers</div>
+				<div system="gen" class="game">Eternal Champions</div>
+				<div system="gen" class="game">Virtual Fighter 2</div>
+				<div system="psx" class="game">Star Wars: Masters of Teräs Käsi</div>
+				<div system="psx" class="game">Simpsons Wrestling</div>
+				<div system="gba" class="game">Shrek - Fairy Tale Freakdown</div>
+				<div system="gbc" class="game">Shrek Super Slam</div>
+				<div system="gba" class="game">Rock 'em sock 'em robots</div>
+				<div system="ds" class="game">Guilty Gear Dust Strikers</div>
+				<div system="gba" class="game">Guilty Gear</div>
+				<div system="snes" class="game">Battle Blaze</div>
+				<div system="snes" class="game">Ultimate Mortal Kombat 3</div>
+				<div system="snes" class="game">Rise of the Robots</div>
+				<div system="snes" class="game">Weaponlord</div>
+				<div system="snes" class="game">Ballz</div>
+				<div system="snes" class="game">Power Rangers</div>
+				<div system="snes" class="game">Doomsday Warrior</div>
+				<div system="snes" class="game">Clayfighter 2</div>
+				<div system="snes" class="game">ClayFighter</div>
+				<div system="snes" class="game">Ultraman</div>
+				<div system="snes" class="game">Justice League Task Force</div>
+				<div system="snes" class="game">Double Dragon V</div>
+				<div system="snes" class="game">Shaq Fu</div>	
+			</div>
+
+			
+			<div class="gamecolumntop">
+			</div>
+			<div class="content">
+			<div class="playercolumn">
+				<div id="playericon">
+				player
+				</div>
+			</div>
+			<div class="gamescolumn">
+				
+			</div>
+
+			</div>
+			<div class="gamecolumnbottom">
+			</div>
+			
+		</div>
+		<div id="bottom"></div>
+		<script>
+		
+		$(document).ready(function(){
+			
+			var lastyposition = 0;
+			
+			var currentgame = 0;
+			
+			var cutoff = 2;
+			
+			var windowheight = $( window ).height();
+			
+			var gameindex = 0;
+			
+			var topgap = $(".gamecolumntop").height();
+			
+			$(".fighting.gameslist .game").each(function(e){
+
+				gameindex++;
+				$(".content .gamescolumn").append('<div id="game' + gameindex + '" system="' + $(this).attr("system") + '" class="gameicon"><div class="gamecover">' + $(this).text() + '</div></div>');							
+			});
+			var gameiconheight = $(".gameicon").height();
+			var gameicontopmargin = $(".gameicon").css("marginTop").replace("px","");
+			var gameiconbottomargin = $(".gameicon").css("marginBottom").replace("px","");
+			var totalgames = $(".gameicon").length;
+			
+			lastyposition = $(".gamescolumn .gameicon:last").position().top;
+			var lastgame = $(".gamescolumn .gameicon:last");
+			
+			var lastyposition = lastgame.position().top;
+			window.scrollTo(0,0);
+			
+			windowheightInt = parseInt(windowheight);
+			iconheight = parseInt(gameiconheight);
+			gameicontopmargin = parseInt(gameicontopmargin);
+			gameiconbottomargin = parseInt(gameiconbottomargin);
+			topgap = parseInt(topgap);
+			
+			
+			//initial starting animation
+			
+			$('html, body').animate({
+				scrollTop: $("#bottom").offset().top    
+			}, 2000);
+			
+			$("#playericon").animate({
+				marginTop: "+=" + (lastyposition - topgap),
+			  }, 2000, function() {
+				// Animation complete.
+					
+			  });
+			  			 
+			
+			$(document).keydown(function(e) {
+				switch(e.which) {
+					case 32: //spacebar
+
+					rungame(currentgame, totalgames);
+					break;
+					case 38: // up
+					
+					if(currentgame < (totalgames-1)){
+						if($("#playericon").css("marginTop").replace('px', '') > 0 ){
+
+							currentgame++;
+							rungame(currentgame, totalgames);
+							
+							if(currentgame == (totalgames-1)){
+								scrolloffset = gameiconheight + gameiconheight + topgap;
+							}
+							else{
+								scrolloffset = gameiconheight + gameiconheight;
+							}
+							$("#playericon").animate({				
+								marginTop: "-=" + (gameiconheight+gameiconbottomargin),		
+							  }, 400, function() {
+								// Animation complete.
+								  
+							  });
+							  
+								$("body, html").animate({ 		
+									scrollTop: $("#playericon").offset().top - scrolloffset
+								});
+							  
+					
+						}
+					}
+					break;
+					case 40: // down
+					currentgame--;
+					rungame(currentgame, totalgames);
+					
+					if(currentgame >= 0){
+					
+							$("#playericon").animate({				
+								marginTop: "+=" + (gameiconheight+gameiconbottomargin),				
+							  }, 400, function() {
+								// Animation complete.
+							  });
+								$("body, html").animate({ 		
+									scrollTop: $("#playericon").offset().top + gameiconheight
+								});
+					
+					}
+					else{
+						currentgame = 0;
+					}
+					break;
+
+					default: return; // exit this handler for other keys
+				}
+				e.preventDefault(); // prevent the default action (scroll / move caret)
+			});
+
+			var snes_emulator =  "\"D:\\Applications\\Emulators\\snes9x\\snes9x-x64.exe\"";
+			var snes_rom_path = "\"D:\\Applications\\Emulators\\Super\ Nintendo\\";
+			var nes_emulator =  "\"D:\\Applications\\Emulators\\NES ALL ROMS\\Emulators\\Nestopia\\nestopia.exe\"";
+			var nes_rom_path =  "\"D:\\Applications\\Emulators\\NES ALL ROMS\\Games Released in the US\\";
+			
+			function runProgram(program, rom)
+			{
+				var shell = new ActiveXObject("WScript.Shell");             
+				//var emulator =  "\"D:\\Applications\\Emulators\\snes9x\\snes9x-x64.exe\" \"D:\\Applications\\Emulators\\Super\ Nintendo\\ActRaiser.zip\"";
+				var emulator =  program + " " + rom;
+				shell.Run(emulator);
+			}
+			
+			function rungame(gameindex, totalgames){
+				var game = $("#game"+(totalgames - gameindex)).text();
+				var system = $("#game"+(totalgames - gameindex)).attr("system");
+
+				$("#game"+(totalgames - gameindex)+" .gamecover").animate({
+					opacity:0  }, 700, function() {
+					// Animation complete.
+console.log("Current game name: " + game);
+console.log("Current game systen: " + system);
+				});
+				
+				
+		
+			}
+					
+			
+		});
+			
+										
+		</script>
+
+	</body>
+</html>

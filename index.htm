@@ -1449,17 +1449,19 @@
 		<script>
 		
 			$(document).ready(function(){
-				var snes_emulator =  "\"F:\\Emulators\\snes9x\\snes9x-x64.exe\"";
-				var snes_rom_path = "\"F:\\Emulators\\Super\ Nintendo\\";
-				var nes_emulator =  "\"F:\\Emulators\\NES ALL ROMS\\Emulators\\Nestopia\\nestopia.exe\"";
-				var nes_rom_path =  "\"F:\\Emulators\\NES ALL ROMS\\Games Released in the US\\";
+				var snes_emulator =  "\"D:\\Applications\\Emulators\\snes9x\\snes9x-x64.exe\"";
+				var snes_rom_path = "\"D:\\Applications\\Emulators\\Super\ Nintendo\\";
+				var nes_emulator =  "\"D:\\Applications\\Emulators\\NES ALL ROMS\\Emulators\\Nestopia\\nestopia.exe\"";
+				var nes_rom_path =  "\"D:\\Applications\\Emulators\\NES ALL ROMS\\Games Released in the US\\";
 				function runProgram(program, rom)
 				{
 					var shell = new ActiveXObject("WScript.Shell");             
+					//var emulator =  "\"D:\\Applications\\Emulators\\snes9x\\snes9x-x64.exe\" \"D:\\Applications\\Emulators\\Super\ Nintendo\\ActRaiser.zip\"";
 					var emulator =  program + " " + rom;
 					shell.Run(emulator);
 				}
 				
+				//var total_games = $("#textMachine div").length;	
 				var snes_total_games = $(".snes.gameslist").length;	
 				var nes_total_games = $(".nes.gameslist").length;	
 				
