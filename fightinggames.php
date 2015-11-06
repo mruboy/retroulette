@@ -51,6 +51,7 @@
 				<div system="snes" class="game">Justice League Task Force</div>
 				<div system="snes" class="game">Double Dragon V - The Shadow Falls</div>
 				<div system="snes" class="game">Shaq Fu</div>	
+				<div system="snes" class="game">Street Combat</div>	
 			</div>
 
 			
