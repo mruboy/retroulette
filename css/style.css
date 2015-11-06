@@ -143,10 +143,10 @@ p.title{
 	padding: 50px 0px;
 }
 #header table, #footer table{
-    height: 55%;
+    height: 100%;
     margin: 0 auto;
-    min-width: 850px;
-    width: 75%;
+    min-width: 650px;
+    width: 50%;
     margin-top: 120px;
 }
 #header table td, #footer table td{
@@ -209,7 +209,7 @@ p.title{
 }
 
 .slotMachineContainer > div {
-    font-size: 45px;
+    font-size: 65px;
 }
 
 /*

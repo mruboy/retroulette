@@ -1,3 +1,6 @@
+body{
+	position:relative;
+}
 .content{
 	width:355px;
 	margin:0 auto;
@@ -48,6 +51,24 @@
 	display: block;
 	background-repeat: no-repeat;
 }
+
+.gamecover{
+	background-image:url("../fightingimages/gamecover.jpg");
+}
+.warningcover{
+    z-index: 99999;
+    background-color: #000;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-image: url("../fightingimages/newchallengerapproaching.gif");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50% 0px;
+	opacity:0;
+}
 #playericon{
 	background-color:red;
 }
@@ -60,6 +81,8 @@
 
 #playericon{
 	margin: 39px 0px 0;
+    background-image: url("../fightingimages/chrishead.jpg");
+
 }
 .gamescolumn .gameicon:last-child{
 	margin-bottom:30px;
@@ -75,7 +98,7 @@ body{
 .mountain{
 	background-image:url("../fightingimages/mk3bg.jpg");
 	background-position:50% 0;
-	background-size: contain;
+	background-size: cover;
 	height:100%;
 	background-attachment: fixed;
 }
